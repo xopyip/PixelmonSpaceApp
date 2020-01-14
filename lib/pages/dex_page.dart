@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'page_template.dart';
+import '../page_template.dart';
 
 class DexPage extends StatefulWidget {
   DexPage({Key key}) : super(key: key);
 
   @override
   _DexPageState createState() {
-    print("creating state");
     return _DexPageState();
   }
 }

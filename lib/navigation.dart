@@ -35,16 +35,16 @@ class _NavigationState extends State<Navigation> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 createBox("assets/pokedex.png", () {
-                  print("dex");
+                  Navigator.pushReplacementNamed(context, "/dex");
                 }),
                 createBox("assets/biome_disabled.png", () {
-                  print("biome");
+                  Navigator.pushReplacementNamed(context, "/spawning");
                 }),
                 createBox("assets/drop_disabled.png", () {
-                  print("drop");
+                  Navigator.pushReplacementNamed(context, "/drop");
                 }),
                 createBox("assets/crafting_disabled.png", () {
-                  print("crafting");
+                  Navigator.pushReplacementNamed(context, "/crafting");
                 }),
               ],
             ),
