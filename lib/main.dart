@@ -1,8 +1,6 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pixelmon_space/navigation.dart';
-import 'package:pixelmon_space/page_template.dart';
+import 'package:pixelmon_space/dex_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,26 +13,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return PageTemplate(
-      title: "PokeDex",
-      child: Container(
-        child: Text("Test"),
-      )
+      initialRoute: "/dex",
+      routes: {
+        "/dex": (context) => DexPage()
+      },
     );
   }
 }
