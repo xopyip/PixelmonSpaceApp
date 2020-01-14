@@ -45,10 +45,10 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 70,
       color: Color(0xffffffff),
       child: Padding(
-        padding: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 30),
+        padding: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 0),
         child: new Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -58,12 +58,12 @@ class _NavigationState extends State<Navigation> {
                   color: Color(0x60000000)),
             ],
             borderRadius:
-            BorderRadius.all(Radius.circular((100.0 - 30 - 15) / 2)),
+            BorderRadius.all(Radius.circular((70 - 15) / 2)),
           ),
           child: new Container(
             decoration: BoxDecoration(
               borderRadius:
-              BorderRadius.all(Radius.circular((100.0 - 30 - 15) / 2)),
+              BorderRadius.all(Radius.circular((70 - 15) / 2)),
               color: Color(0xffeaeaea),
             ),
             child: Row(
