@@ -9,6 +9,10 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Pixelmon Space"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/splash" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
