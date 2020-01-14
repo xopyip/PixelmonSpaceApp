@@ -46,6 +46,7 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
+      color: Color(0xffffffff),
       child: Padding(
         padding: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 30),
         child: new Container(
