@@ -88,6 +88,9 @@ class _NavigationState extends State<Navigation> {
           ..scale(1.2),
       ),
       onTap: () {
+        if (currentRoute == idx) {
+          return;
+        }
         setState(() {
           currentRoute = idx;
         });
