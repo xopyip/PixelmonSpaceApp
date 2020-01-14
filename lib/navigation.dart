@@ -1,13 +1,47 @@
 import 'package:flutter/material.dart';
 
 class Navigation extends StatefulWidget {
-  Navigation({Key key}) : super(key: key);
+  GlobalKey<NavigatorState> navigationKey;
+  int currentRoute = 0;
+
+  Navigation(this.navigationKey, {Key key}) : super(key: key);
 
   @override
-  _NavigationState createState() => _NavigationState();
+  State<StatefulWidget> createState() {
+    return _NavigationState(navigationKey);
+  }
+
 }
 
 class _NavigationState extends State<Navigation> {
+  GlobalKey<NavigatorState> navigationKey;
+  int currentRoute = 0;
+  List<_NavigationItem> items = [
+    _NavigationItem("pokedex", "/dex"),
+    _NavigationItem("biome", "/spawning"),
+    _NavigationItem("drop", "/drop"),
+    _NavigationItem("crafting", "/crafting"),
+  ];
+
+  _NavigationState(this.navigationKey);
+
+  @override
+  void initState() {
+    setState(() {
+      currentRoute = 0;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    for (var value in items) {
+      precacheImage(AssetImage(_getImageName(value, true)), context);
+      precacheImage(AssetImage(_getImageName(value, false)), context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,20 +67,7 @@ class _NavigationState extends State<Navigation> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                createBox("assets/pokedex.png", () {
-                  Navigator.pushReplacementNamed(context, "/dex");
-                }),
-                createBox("assets/biome_disabled.png", () {
-                  Navigator.pushReplacementNamed(context, "/spawning");
-                }),
-                createBox("assets/drop_disabled.png", () {
-                  Navigator.pushReplacementNamed(context, "/drop");
-                }),
-                createBox("assets/crafting_disabled.png", () {
-                  Navigator.pushReplacementNamed(context, "/crafting");
-                }),
-              ],
+              children: items.map((item) => createLink(context, item)).toList(),
             ),
           ),
         ),
@@ -54,17 +75,36 @@ class _NavigationState extends State<Navigation> {
     );
   }
 
-  createBox(String image, Null Function() handler) {
+  Widget createLink(BuildContext context, _NavigationItem item) {
+    var idx = items.indexOf(item);
     return GestureDetector(
       child: Container(
         child: SizedBox(
           height: 100,
-          child: Image(image: AssetImage(image)),
+          child: Image(
+              image: AssetImage(_getImageName(item, currentRoute != idx))),
         ),
         transform: Matrix4.translationValues(-5, -20, 0)
           ..scale(1.2),
       ),
-      onTap: handler,
+      onTap: () {
+        setState(() {
+          currentRoute = idx;
+        });
+        navigationKey.currentState.pushReplacementNamed(item.routeName);
+      },
     );
   }
+
+  String _getImageName(_NavigationItem item, bool disabled) {
+    return "assets/" + item.imageName + (disabled ? "_disabled" : "") + ".png";
+  }
+}
+
+class _NavigationItem {
+  String imageName;
+  String routeName;
+
+  _NavigationItem(this.imageName, this.routeName);
+
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'navigation.dart';
-
 class PageTemplate extends StatelessWidget {
   final String title;
   final Container child;
@@ -10,8 +8,9 @@ class PageTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    return Container(
+      color: Colors.white,
+      child: Stack(
         children: <Widget>[
           Positioned(
             top: -30,
@@ -29,16 +28,19 @@ class PageTemplate extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff767676)),),
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff767676)),
+                ),
                 child
               ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Navigation(),
     );
   }
 }
