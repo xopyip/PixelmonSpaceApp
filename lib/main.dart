@@ -33,10 +33,13 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: (settings) {
               var builder = routes[settings.name];
               if (builder == null) {
-                builder = routes["/dex"];
+                return MaterialPageRoute(
+                    settings: settings, builder: (_) => Container());
               }
               return MaterialPageRoute(
-                  settings: settings, builder: (_) => builder(context));
+                  settings: settings, builder: (_) {
+                return builder(context);
+              });
             },
           ),
           bottomNavigationBar: Navigation(navigationKey)
