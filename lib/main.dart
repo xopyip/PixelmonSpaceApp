@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:pixelmon_space/navigation.dart';
+import 'package:pixelmon_space/page_template.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,21 +28,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'pixelmon.space',
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Navigation(),
+    return PageTemplate(
+      title: "PokeDex",
+      child: Container(
+        child: Text("Test"),
+      )
     );
   }
 }
