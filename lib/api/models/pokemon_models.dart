@@ -126,11 +126,16 @@ class Pokemon {
       this.form);
 
   factory Pokemon.fromJson(json) {
+    Map<String, Pokemon> forms = new Map();
+    Map<String, dynamic> origForms = json["forms"] as Map<String, dynamic>;
+    origForms.forEach((name, val) {
+      forms[name] = Pokemon.fromJson(val);
+    });
     return Pokemon(
         json["id"] as int,
         json["pixelmonName"] as String,
         json["pokemon"] as String,
-        json["stats"] as PokeStats,
+        PokeStats.fromJson(json["stats"]),
         json["catchRate"] as int,
         json["malePercent"] as int,
         json["spawnLevel"] as int,
@@ -146,11 +151,12 @@ class Pokemon {
         json["canSurf"] as bool,
         json["preEvolutions"] as List<String>,
         json["experienceGroup"] as String,
-        json["aggression"] as PokeAggression,
+        PokeAggression.fromJson(json["aggression"]),
         json["spawnLocations"] as List<String>,
         json["evYields"] as Map<String, int>,
         json["weight"] as int,
-        json["evolutions"] as List<PokeEvolution>,
+        (json["evolutions"] as List<dynamic>).map((o) =>
+            PokeEvolution.fromJson(o)).toList(),
         json["abilities"] as List<String>,
         json["eggGroups"] as List<String>,
         json["eggCycles"] as int,
@@ -158,7 +164,7 @@ class Pokemon {
         json["tmMoves"] as List<String>,
         json["tutorMoves"] as List<String>,
         json["eggMoves"] as List<String>,
-        json["forms"] as Map<String, Pokemon>,
+        forms,
         json["form"] as int);
   }
 }
@@ -166,10 +172,14 @@ class Pokemon {
 class PokemonListEntry {
   String pixelmonName;
   int id;
+  List<String> types;
+  PokeStats stats;
 
-  PokemonListEntry(this.pixelmonName, this.id);
+  PokemonListEntry(this.pixelmonName, this.id, this.types, this.stats);
 
   factory PokemonListEntry.fromJson(json) {
-    return PokemonListEntry(json["pixelmonName"] as String, json["id"] as int);
+    return PokemonListEntry(json["pixelmonName"] as String, json["id"] as int,
+        (json["types"] as List<dynamic>).map((o) => o as String).toList(),
+        PokeStats.fromJson(json["stats"]));
   }
 }

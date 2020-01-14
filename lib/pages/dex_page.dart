@@ -15,7 +15,6 @@ class DexPage extends StatefulWidget {
 }
 
 class _DexPageState extends State<DexPage> {
-
   List<PokemonListEntry> pokemons;
 
   @override
@@ -30,10 +29,29 @@ class _DexPageState extends State<DexPage> {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-        title: "PokeDex",
-        child: Container(
-          child: Text("Test"),
-        )
+      title: "PokeDex",
+      child: GridView.builder(
+        itemCount: pokemons.length,
+        gridDelegate:
+        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: Column(
+              children: <Widget>[
+                Text("#${pokemons[index].id}"),
+                Text("Pokemon ${pokemons[index].pixelmonName}"),
+                Text("Typy ${pokemons[index].types}"),
+                Text("HP ${pokemons[index].stats.hp}"),
+                Text("atk ${pokemons[index].stats.attack}"),
+                Text("def ${pokemons[index].stats.defence}"),
+                Text("spatk ${pokemons[index].stats.specialAttack}"),
+                Text("spdef ${pokemons[index].stats.specialDefence}"),
+                Text("spd ${pokemons[index].stats.speed}"),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
