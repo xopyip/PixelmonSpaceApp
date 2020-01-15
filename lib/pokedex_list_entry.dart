@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/constants.dart';
+import 'package:pixelmon_space/utils.dart';
 
 class PokedexListEntry extends StatelessWidget {
   final PokemonListEntry pokemon;
@@ -64,7 +65,9 @@ class PokedexListEntry extends StatelessWidget {
                                   vertical: 3, horizontal: 6),
                               child: Text(
                                 type,
-                                style: TextStyle(color: Color(0xffffffff)),
+                                style: TextStyle(color: getBestContrast(
+                                    typesColors[type], Color(0xffffffff),
+                                    Color(0xff000000))),
                               ),
                             );
                           }).toList(),
