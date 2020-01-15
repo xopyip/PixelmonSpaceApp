@@ -24,7 +24,7 @@ class PageTemplate extends StatelessWidget {
             left: 20,
             right: 20,
             bottom: 20,
-            top: 50,
+            top: 55,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

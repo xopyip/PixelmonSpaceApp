@@ -3,6 +3,7 @@ import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/api/pokemon_api.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:pixelmon_space/pokedex_list_entry.dart';
 import '../page_template.dart';
 
 class DexPage extends StatefulWidget {
@@ -32,23 +33,42 @@ class _DexPageState extends State<DexPage> {
       title: "PokeDex",
       child: GridView.builder(
         itemCount: pokemons.length,
-        gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        padding: EdgeInsets.only(bottom: 20),
+        physics: PageScrollPhysics(),
+        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 2, crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: Column(
-              children: <Widget>[
-                Text("#${pokemons[index].id}"),
-                Text("Pokemon ${pokemons[index].pixelmonName}"),
-                Text("Typy ${pokemons[index].types}"),
-                Text("HP ${pokemons[index].stats.hp}"),
-                Text("atk ${pokemons[index].stats.attack}"),
-                Text("def ${pokemons[index].stats.defence}"),
-                Text("spatk ${pokemons[index].stats.specialAttack}"),
-                Text("spdef ${pokemons[index].stats.specialDefence}"),
-                Text("spd ${pokemons[index].stats.speed}"),
-              ],
-            ),
+          return Stack(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(
+                    top: 16,
+                    left: (index % 2 == 1) ? 5 : 0,
+                    right: (index % 2 == 0) ? 5 : 0),
+                child: PokedexListEntry(pokemons[index]),
+              ),
+              Positioned(
+                left: (index % 2 == 1) ? 5 : 0,
+                top: 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: 5, top: 2, bottom: 2, right: 5),
+                    color: Color(0xffFF7D7D),
+                    child: Text(
+                      "#${pokemons[index].id}",
+                      style: TextStyle(
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
@@ -58,6 +78,15 @@ class _DexPageState extends State<DexPage> {
   void loadPokemons() async {
     var p = await fetchPokemons(http.Client());
     print("loaded ${p.length} pokemons");
+    int len = 0;
+    int id = 0;
+    for (var a in p) {
+      if (a.pixelmonName.length > len) {
+        len = a.pixelmonName.length;
+        id = a.id;
+      }
+    }
+    print(id);
     setState(() {
       pokemons = p;
     });
