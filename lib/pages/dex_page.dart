@@ -34,7 +34,6 @@ class _DexPageState extends State<DexPage> {
       child: GridView.builder(
         itemCount: pokemons.length,
         padding: EdgeInsets.only(bottom: 20),
-        physics: PageScrollPhysics(),
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 2, crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {

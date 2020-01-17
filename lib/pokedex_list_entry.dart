@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/constants.dart';
@@ -35,7 +37,19 @@ class PokedexListEntry extends StatelessWidget {
               bottom: 0,
               child: StatsRow(pokemon),
             ),
-            //TODO: pokemon image
+            Positioned(
+              top: -20,
+              right: -20,
+              child: SizedBox(
+                height: 80,
+                child: CachedNetworkImage(
+                  imageUrl: API_URL +
+                      "pokemon/sprite/${pokemon.id.toString().padLeft(3, '0')}",
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(left: 10, top: 5),
               child: Column(
