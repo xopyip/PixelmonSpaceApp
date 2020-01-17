@@ -43,9 +43,17 @@ class PokedexListEntry extends StatelessWidget {
               child: SizedBox(
                 height: 80,
                 child: CachedNetworkImage(
+                  fadeOutDuration: Duration(microseconds: 0),
                   imageUrl: API_URL +
                       "pokemon/sprite/${pokemon.id.toString().padLeft(3, '0')}",
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),

@@ -37,37 +37,42 @@ class _DexPageState extends State<DexPage> {
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 2, crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          return Stack(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                    top: 16,
-                    left: (index % 2 == 1) ? 5 : 0,
-                    right: (index % 2 == 0) ? 5 : 0),
-                child: PokedexListEntry(pokemons[index]),
-              ),
-              Positioned(
-                left: (index % 2 == 1) ? 5 : 0,
-                top: 4,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: 5, top: 2, bottom: 2, right: 5),
-                    color: Color(0xffFF7D7D),
-                    child: Text(
-                      "#${pokemons[index].id}",
-                      style: TextStyle(
-                        color: Color(0xffffffff),
+          return GestureDetector(
+            onTap: () {
+              print(pokemons[index].pixelmonName);
+            },
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 16,
+                      left: (index % 2 == 1) ? 5 : 0,
+                      right: (index % 2 == 0) ? 5 : 0),
+                  child: PokedexListEntry(pokemons[index]),
+                ),
+                Positioned(
+                  left: (index % 2 == 1) ? 5 : 0,
+                  top: 4,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: 5, top: 2, bottom: 2, right: 5),
+                      color: Color(0xffFF7D7D),
+                      child: Text(
+                        "#${pokemons[index].id}",
+                        style: TextStyle(
+                          color: Color(0xffffffff),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -77,15 +82,6 @@ class _DexPageState extends State<DexPage> {
   void loadPokemons() async {
     var p = await fetchPokemons(http.Client());
     print("loaded ${p.length} pokemons");
-    int len = 0;
-    int id = 0;
-    for (var a in p) {
-      if (a.pixelmonName.length > len) {
-        len = a.pixelmonName.length;
-        id = a.id;
-      }
-    }
-    print(id);
     setState(() {
       pokemons = p;
     });
