@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
+import 'package:pixelmon_space/api/pokemon_api.dart';
+import 'package:http/http.dart' as http;
 
 import '../constants.dart';
 
@@ -16,10 +18,19 @@ class PokemonInfoPage extends StatefulWidget {
 }
 
 class _PokemonInfoPageState extends State<PokemonInfoPage> {
-  PokemonListEntry pokemon;
+  PokemonListEntry pokemonListEntry;
   final GlobalKey<NavigatorState> navigationKey;
+  Pokemon pokemon;
 
-  _PokemonInfoPageState(this.pokemon, this.navigationKey);
+  _PokemonInfoPageState(this.pokemonListEntry, this.navigationKey);
+
+  @override
+  void initState() {
+    setState(() {
+      pokemon = null;
+    });
+    loadPokemon();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +85,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
                       ),
                     )),
                 Text(
-                  this.pokemon.pixelmonName,
+                  this.pokemonListEntry.pixelmonName,
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -92,7 +103,8 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
                 height: 150,
                 fadeOutDuration: Duration(microseconds: 0),
                 imageUrl: API_URL +
-                    "pokemon/sprite/${this.pokemon.id.toString().padLeft(3, '0')}",
+                    "pokemon/sprite/${this.pokemonListEntry.id.toString()
+                        .padLeft(3, '0')}",
                 placeholder: (context, url) => Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -111,8 +123,17 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
               ),
             ),
           ),
+          Text("aaaa"),
         ],
       ),
     );
+  }
+
+  void loadPokemon() async {
+    Pokemon pokemon = await fetchPokemon(
+        http.Client(), this.pokemonListEntry.id);
+    setState(() {
+      this.pokemon = pokemon;
+    });
   }
 }

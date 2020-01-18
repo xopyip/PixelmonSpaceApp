@@ -3,7 +3,6 @@ import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/api/pokemon_api.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:pixelmon_space/pages/pokemon_info_page.dart';
 import 'package:pixelmon_space/pokedex_list_entry.dart';
 import '../page_template.dart';
 

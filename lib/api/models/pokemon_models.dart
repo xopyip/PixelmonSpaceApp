@@ -15,7 +15,7 @@ class PokeEvolution {
   int level;
   String name;
   int form;
-  Map<String, dynamic> conditions;
+  List<dynamic> conditions;
   List<String> moves;
   String evoType;
 
@@ -27,8 +27,8 @@ class PokeEvolution {
         json["level"] as int,
         json["name"] as String,
         json["form"] as int,
-        json["conditions"] as Map<String, dynamic>,
-        json["moves"] as List<String>,
+        json["conditions"] as List<dynamic>,
+        (json["moves"] as List).cast<String>().toList(),
         json["evoType"] as String);
   }
 }
@@ -63,7 +63,7 @@ class Pokemon {
   int catchRate;
   int malePercent;
   int spawnLevel;
-  String spawnLevelRange;
+  int spawnLevelRange;
   int baseExp;
   int baseFriendship;
   List<String> types;
@@ -78,7 +78,7 @@ class Pokemon {
   PokeAggression aggression;
   List<String> spawnLocations;
   Map<String, int> evYields;
-  int weight;
+  double weight;
   List<PokeEvolution> evolutions;
   List<String> abilities;
   List<String> eggGroups;
@@ -139,31 +139,32 @@ class Pokemon {
         json["catchRate"] as int,
         json["malePercent"] as int,
         json["spawnLevel"] as int,
-        json["spawnLevelRange"] as String,
+        json["spawnLevelRange"] as int,
         json["baseExp"] as int,
         json["baseFriendship"] as int,
-        json["types"] as List<String>,
+        (json["types"] as List).cast<String>().toList(),
         json["height"] as double,
         json["width"] as double,
         json["length"] as double,
         json["isRideable"] as bool,
         json["canFly"] as bool,
         json["canSurf"] as bool,
-        json["preEvolutions"] as List<String>,
+        (json["preEvolutions"] as List).cast<String>().toList(),
         json["experienceGroup"] as String,
         PokeAggression.fromJson(json["aggression"]),
-        json["spawnLocations"] as List<String>,
-        json["evYields"] as Map<String, int>,
-        json["weight"] as int,
+        (json["spawnLocations"] as List).cast<String>().toList(),
+        (json["evYields"] as Map).cast<String, int>(),
+        json["weight"] as double,
         (json["evolutions"] as List<dynamic>).map((o) =>
             PokeEvolution.fromJson(o)).toList(),
-        json["abilities"] as List<String>,
-        json["eggGroups"] as List<String>,
+        (json["abilities"] as List).cast<String>().toList(),
+        (json["eggGroups"] as List).cast<String>().toList(),
         json["eggCycles"] as int,
-        json["levelUpMoves"] as Map<String, List<String>>,
-        json["tmMoves"] as List<String>,
-        json["tutorMoves"] as List<String>,
-        json["eggMoves"] as List<String>,
+        (json["levelUpMoves"] as Map<String, dynamic>).cast<String,
+            List<String>>(),
+        (json["tmMoves"] as List).cast<String>().toList(),
+        (json["tutorMoves"] as List).cast<String>().toList(),
+        (json["eggMoves"] as List).cast<String>().toList(),
         forms,
         json["form"] as int);
   }

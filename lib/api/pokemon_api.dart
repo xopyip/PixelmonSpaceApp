@@ -14,8 +14,17 @@ Future<List<PokemonListEntry>> fetchPokemons(http.Client client) async {
 
 List<PokemonListEntry> parsePokemons(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<PokemonListEntry>((json) => PokemonListEntry.fromJson(json))
+      .toList();
+}
 
-  var a =
-      parsed.map<PokemonListEntry>((json) => PokemonListEntry.fromJson(json));
-  return a.toList();
+Future<Pokemon> fetchPokemon(http.Client client, int id) async {
+  final file =
+  await DefaultCacheManager().getSingleFile(API_URL + "pokemon/$id");
+  return compute(parsePokemon, await file.readAsString());
+}
+
+Pokemon parsePokemon(String responseBody) {
+  var parsed = jsonDecode(responseBody).cast<String, dynamic>();
+  return Pokemon.fromJson(parsed);
 }
