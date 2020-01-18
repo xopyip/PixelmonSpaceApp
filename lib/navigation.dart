@@ -4,17 +4,16 @@ class Navigation extends StatefulWidget {
   GlobalKey<NavigatorState> navigationKey;
   int currentRoute = 0;
 
-  Navigation(this.navigationKey, {Key key}) : super(key: key);
+  Navigation({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _NavigationState(navigationKey);
+    return _NavigationState();
   }
 
 }
 
 class _NavigationState extends State<Navigation> {
-  GlobalKey<NavigatorState> navigationKey;
   int currentRoute = 0;
   List<_NavigationItem> items = [
     _NavigationItem("pokedex", "/dex"),
@@ -23,7 +22,7 @@ class _NavigationState extends State<Navigation> {
     _NavigationItem("crafting", "/crafting"),
   ];
 
-  _NavigationState(this.navigationKey);
+  _NavigationState();
 
   @override
   void initState() {
@@ -95,7 +94,7 @@ class _NavigationState extends State<Navigation> {
         setState(() {
           currentRoute = idx;
         });
-        navigationKey.currentState.pushReplacementNamed(item.routeName);
+        Navigator.of(context).pushReplacementNamed(item.routeName);
       },
     );
   }

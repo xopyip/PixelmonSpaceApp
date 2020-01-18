@@ -7,22 +7,18 @@ import 'package:pixelmon_space/pokedex_list_entry.dart';
 import '../page_template.dart';
 
 class DexPage extends StatefulWidget {
-  GlobalKey<NavigatorState> navigationKey;
 
-  DexPage(this.navigationKey, {Key key}) : super(key: key);
+  DexPage({Key key}) : super(key: key);
 
   @override
   _DexPageState createState() {
-    return _DexPageState(navigationKey);
+    return _DexPageState();
   }
 }
 
 class _DexPageState extends State<DexPage> {
   List<PokemonListEntry> pokemons;
 
-  GlobalKey<NavigatorState> navigationKey;
-
-  _DexPageState(this.navigationKey);
 
   @override
   void initState() {
@@ -45,7 +41,7 @@ class _DexPageState extends State<DexPage> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              this.navigationKey.currentState.pushNamed(
+              Navigator.of(context).pushNamed(
                   "/dex_info", arguments: pokemons[index]);
             },
             child: Stack(
