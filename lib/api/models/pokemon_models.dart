@@ -128,47 +128,79 @@ class Pokemon {
   factory Pokemon.fromJson(json) {
     Map<String, Pokemon> forms = new Map();
     Map<String, dynamic> origForms = json["forms"] as Map<String, dynamic>;
-    origForms.forEach((name, val) {
-      forms[name] = Pokemon.fromJson(val);
-    });
+    if (origForms != null) {
+      origForms.forEach((name, val) {
+        forms[name] = Pokemon.fromJson(val);
+      });
+    }
     return Pokemon(
-        json["id"] as int,
-        json["pixelmonName"] as String,
-        json["pokemon"] as String,
-        PokeStats.fromJson(json["stats"]),
-        json["catchRate"] as int,
-        json["malePercent"] as int,
-        json["spawnLevel"] as int,
-        json["spawnLevelRange"] as int,
-        json["baseExp"] as int,
-        json["baseFriendship"] as int,
-        (json["types"] as List).cast<String>().toList(),
-        json["height"] is int
-            ? (json["height"] as int).toDouble()
-            : json["height"] as double,
-        json["width"] as double,
-        json["length"] as double,
-        json["isRideable"] as bool,
-        json["canFly"] as bool,
-        json["canSurf"] as bool,
-        (json["preEvolutions"] as List).cast<String>().toList(),
-        json["experienceGroup"] as String,
-        PokeAggression.fromJson(json["aggression"]),
-        (json["spawnLocations"] as List).cast<String>().toList(),
-        (json["evYields"] as Map).cast<String, int>(),
-        json["weight"],
-        (json["evolutions"] as List<dynamic>).map((o) =>
-            PokeEvolution.fromJson(o)).toList(),
-        (json["abilities"] as List).cast<String>().toList(),
-        (json["eggGroups"] as List).cast<String>().toList(),
-        json["eggCycles"] as int,
-        (json["levelUpMoves"] as Map<String, dynamic>).cast<String,
-            List<String>>(),
-        (json["tmMoves"] as List).cast<String>().toList(),
-        (json["tutorMoves"] as List).cast<String>().toList(),
-        (json["eggMoves"] as List).cast<String>().toList(),
-        forms,
-        json["form"] as int);
+      json["id"],
+      json["pixelmonName"],
+      json["pokemon"],
+      PokeStats.fromJson(json["stats"]),
+      json["catchRate"],
+      json["malePercent"],
+      json["spawnLevel"],
+      json["spawnLevelRange"],
+      json["baseExp"],
+      json["baseFriendship"],
+      json["types"] == null
+          ? List()
+          : (json["types"] as List).cast<String>().toList(),
+      json["height"] is int
+          ? (json["height"] as int).toDouble()
+          : json["height"] as double,
+      json["width"] is int ? json["width"].toDouble() : json["width"],
+      json["length"] is int ? json["length"].toDouble() : json["length"],
+      json["isRideable"],
+      json["canFly"],
+      json["canSurf"],
+      json["preEvolutions"] == null
+          ? List()
+          : (json["preEvolutions"] as List).cast<String>().toList(),
+      json["experienceGroup"],
+      json["aggression"] != null
+          ? PokeAggression.fromJson(json["aggression"])
+          : PokeAggression(0, 0, 0),
+      json["spawnLocations"] == null
+          ? List()
+          : json["spawnLocations"].cast<String>().toList(),
+      json["evYields"] == null
+          ? Map()
+          : (json["evYields"] as Map).cast<String, int>(),
+      json["weight"] == null
+          ? 0
+          : ((json["weight"] is double)
+          ? (json["weight"] as double)
+          : (json["weight"] as int).toDouble()),
+      json["evolutions"] == null
+          ? List()
+          : (json["evolutions"] as List<dynamic>)
+          .map((o) => PokeEvolution.fromJson(o))
+          .toList(),
+      json["abilities"] == null
+          ? List()
+          : (json["abilities"] as List).cast<String>().toList(),
+      json["eggGroups"] == null
+          ? List()
+          : (json["eggGroups"] as List).cast<String>().toList(),
+      json["eggCycles"],
+      json["levelUpMoves"] == null
+          ? Map()
+          : (json["levelUpMoves"] as Map<String, dynamic>)
+          .cast<String, List<String>>(),
+      json["tmMoves"] == null
+          ? List()
+          : (json["tmMoves"] as List).cast<String>().toList(),
+      json["tutorMoves"] == null
+          ? List()
+          : (json["tutorMoves"] as List).cast<String>().toList(),
+      json["eggMoves"] == null
+          ? List()
+          : (json["eggMoves"] as List).cast<String>().toList(),
+      forms,
+      json["form"],
+    );
   }
 }
 
@@ -181,7 +213,9 @@ class PokemonListEntry {
   PokemonListEntry(this.pixelmonName, this.id, this.types, this.stats);
 
   factory PokemonListEntry.fromJson(json) {
-    return PokemonListEntry(json["pixelmonName"] as String, json["id"] as int,
+    return PokemonListEntry(
+        json["pixelmonName"] as String,
+        json["id"] as int,
         (json["types"] as List<dynamic>).map((o) => o as String).toList(),
         PokeStats.fromJson(json["stats"]));
   }

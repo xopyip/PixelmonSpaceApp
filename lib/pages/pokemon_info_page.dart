@@ -149,7 +149,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
 
   void loadPokemon() async {
     Pokemon pokemon =
-    await fetchPokemon(http.Client(), this.pokemonListEntry.id);
+    await fetchPokemon(this.pokemonListEntry.id);
     setState(() {
       this.pokemon = pokemon;
     });

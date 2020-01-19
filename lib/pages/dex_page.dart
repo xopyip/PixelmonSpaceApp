@@ -84,7 +84,7 @@ class _DexPageState extends State<DexPage> {
   }
 
   void loadPokemons() async {
-    var p = await fetchPokemons(http.Client());
+    var p = await fetchPokemons();
     print("loaded ${p.length} pokemons");
     setState(() {
       pokemons = p;

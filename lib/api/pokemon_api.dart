@@ -3,11 +3,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pixelmon_space/constants.dart';
 
 import 'models/pokemon_models.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-Future<List<PokemonListEntry>> fetchPokemons(http.Client client) async {
+Future<List<PokemonListEntry>> fetchPokemons() async {
   final file = await DefaultCacheManager().getSingleFile(API_URL + "pokemon");
   return compute(parsePokemons, await file.readAsString());
 }
@@ -18,7 +17,7 @@ List<PokemonListEntry> parsePokemons(String responseBody) {
       .toList();
 }
 
-Future<Pokemon> fetchPokemon(http.Client client, int id) async {
+Future<Pokemon> fetchPokemon(int id) async {
   final file =
   await DefaultCacheManager().getSingleFile(API_URL + "pokemon/$id");
   return compute(parsePokemon, await file.readAsString());
