@@ -15,6 +15,7 @@ class _CraftingPageState extends State<CraftingPage> {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
+        page: this.widget,
         title: "Crafting",
         child: Container(
           child: Text("Test"),

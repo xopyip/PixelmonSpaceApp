@@ -33,6 +33,7 @@ class _DexPageState extends State<DexPage> {
   Widget build(BuildContext context) {
     return PageTemplate(
       title: "PokeDex",
+      page: this.widget,
       child: GridView.builder(
         itemCount: pokemons.length,
         padding: EdgeInsets.only(bottom: 20),

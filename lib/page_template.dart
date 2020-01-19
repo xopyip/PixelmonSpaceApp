@@ -5,7 +5,10 @@ class PageTemplate extends StatelessWidget {
   final String title;
   final Widget child;
 
-  PageTemplate({Key key, this.child, this.title}) : super(key: key);
+  final Widget page;
+
+  PageTemplate({Key key, @required this.page, this.child, this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class PageTemplate extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Navigation(),
+      bottomNavigationBar: Navigation(this.page),
     );
   }
 }

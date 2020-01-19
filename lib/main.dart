@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
+import 'package:pixelmon_space/page_transitions.dart';
 import 'package:pixelmon_space/pages/crafting_page.dart';
 import 'package:pixelmon_space/pages/dex_page.dart';
 import 'package:pixelmon_space/pages/drop_page.dart';
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
       title: 'Pixelmon Space',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.iOS: NoTransitionPage(),
+          TargetPlatform.android: NoTransitionPage(),
+        }),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/dex',
@@ -41,7 +46,6 @@ class MyApp extends StatelessWidget {
           return builder(context, settings);
         });
       },
-
     );
   }
 }

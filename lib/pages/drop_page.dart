@@ -16,6 +16,7 @@ class _DropPageState extends State<DropPage> {
   Widget build(BuildContext context) {
     return PageTemplate(
         title: "Drop",
+        page: this.widget,
         child: Container(
           child: Text("Test"),
         ));

@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:pixelmon_space/pages/crafting_page.dart';
+import 'package:pixelmon_space/pages/dex_page.dart';
+import 'package:pixelmon_space/pages/drop_page.dart';
+import 'package:pixelmon_space/pages/spawning_page.dart';
 
 class Navigation extends StatefulWidget {
   GlobalKey<NavigatorState> navigationKey;
   int currentRoute = 0;
 
-  Navigation({Key key}) : super(key: key);
+  Widget page;
+
+  Navigation(this.page, {Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _NavigationState();
+    return _NavigationState(this.page);
   }
-
 }
 
 class _NavigationState extends State<Navigation> {
-  int currentRoute = 0;
   List<_NavigationItem> items = [
-    _NavigationItem("pokedex", "/dex"),
-    _NavigationItem("biome", "/spawning"),
-    _NavigationItem("drop", "/drop"),
-    _NavigationItem("crafting", "/crafting"),
+    _NavigationItem("pokedex", "/dex", (w) => w is DexPage),
+    _NavigationItem("biome", "/spawning", (w) => w is SpawningPage),
+    _NavigationItem("drop", "/drop", (w) => w is DropPage),
+    _NavigationItem("crafting", "/crafting", (w) => w is CraftingPage),
   ];
 
-  _NavigationState();
+  Widget page;
 
-  @override
-  void initState() {
-    setState(() {
-      currentRoute = 0;
-    });
-  }
+  _NavigationState(this.page);
 
   @override
   void didChangeDependencies() {
@@ -56,13 +55,11 @@ class _NavigationState extends State<Navigation> {
                   blurRadius: 12,
                   color: Color(0x60000000)),
             ],
-            borderRadius:
-            BorderRadius.all(Radius.circular((70 - 15) / 2)),
+            borderRadius: BorderRadius.all(Radius.circular((70 - 15) / 2)),
           ),
           child: new Container(
             decoration: BoxDecoration(
-              borderRadius:
-              BorderRadius.all(Radius.circular((70 - 15) / 2)),
+              borderRadius: BorderRadius.all(Radius.circular((70 - 15) / 2)),
               color: Color(0xffeaeaea),
             ),
             child: Row(
@@ -76,24 +73,21 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget createLink(BuildContext context, _NavigationItem item) {
-    var idx = items.indexOf(item);
+    print(this.page);
     return GestureDetector(
       child: Container(
         child: SizedBox(
           height: 100,
           child: Image(
-              image: AssetImage(_getImageName(item, currentRoute != idx))),
+              image: AssetImage(_getImageName(item, !item.check(this.page)))),
         ),
         transform: Matrix4.translationValues(-5, -20, 0)
           ..scale(1.2),
       ),
       onTap: () {
-        if (currentRoute == idx) {
+        if (item.check(this.page)) {
           return;
         }
-        setState(() {
-          currentRoute = idx;
-        });
         Navigator.of(context).pushReplacementNamed(item.routeName);
       },
     );
@@ -107,7 +101,7 @@ class _NavigationState extends State<Navigation> {
 class _NavigationItem {
   String imageName;
   String routeName;
+  bool Function(Widget) check;
 
-  _NavigationItem(this.imageName, this.routeName);
-
+  _NavigationItem(this.imageName, this.routeName, this.check);
 }

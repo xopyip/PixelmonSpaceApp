@@ -16,6 +16,7 @@ class _SpawningPageState extends State<SpawningPage> {
   Widget build(BuildContext context) {
     return PageTemplate(
         title: "Spawning",
+        page: this.widget,
         child: Container(
           child: Text("Test"),
         ));
