@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/page_transitions.dart';
 import 'package:pixelmon_space/pages/crafting_page.dart';
-import 'package:pixelmon_space/pages/dex_page.dart';
+import 'package:pixelmon_space/pages/dex/dex_page.dart';
 import 'package:pixelmon_space/pages/drop_page.dart';
-import 'package:pixelmon_space/pages/pokemon_info_page.dart';
+import 'package:pixelmon_space/pages/dex/pokemon_info_page.dart';
 import 'package:pixelmon_space/pages/spawning_page.dart';
 import 'package:flutter/services.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixelmon_space/pages/crafting_page.dart';
-import 'package:pixelmon_space/pages/dex_page.dart';
+import 'package:pixelmon_space/pages/dex/dex_page.dart';
 import 'package:pixelmon_space/pages/drop_page.dart';
 import 'package:pixelmon_space/pages/spawning_page.dart';
 

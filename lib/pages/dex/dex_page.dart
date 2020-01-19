@@ -4,7 +4,7 @@ import 'package:pixelmon_space/api/pokemon_api.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:pixelmon_space/pokedex_list_entry.dart';
-import '../page_template.dart';
+import '../../page_template.dart';
 
 class DexPage extends StatefulWidget {
 
