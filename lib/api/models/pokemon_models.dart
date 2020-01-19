@@ -143,7 +143,9 @@ class Pokemon {
         json["baseExp"] as int,
         json["baseFriendship"] as int,
         (json["types"] as List).cast<String>().toList(),
-        json["height"] as double,
+        json["height"] is int
+            ? (json["height"] as int).toDouble()
+            : json["height"] as double,
         json["width"] as double,
         json["length"] as double,
         json["isRideable"] as bool,
@@ -154,7 +156,7 @@ class Pokemon {
         PokeAggression.fromJson(json["aggression"]),
         (json["spawnLocations"] as List).cast<String>().toList(),
         (json["evYields"] as Map).cast<String, int>(),
-        json["weight"] as double,
+        json["weight"],
         (json["evolutions"] as List<dynamic>).map((o) =>
             PokeEvolution.fromJson(o)).toList(),
         (json["abilities"] as List).cast<String>().toList(),

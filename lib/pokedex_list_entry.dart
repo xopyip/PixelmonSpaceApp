@@ -132,37 +132,11 @@ class StatsRow extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            color: Color(0xff13CDEB),
-            child: Padding(
-              padding: EdgeInsets.all(2),
-              child: Text(
-                "${pokemon.stats.speed}",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
             color: Color(0xffF46263),
             child: Padding(
               padding: EdgeInsets.all(2),
               child: Text(
                 "${pokemon.stats.attack}",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            color: Color(0xffC338D3),
-            child: Padding(
-              padding: EdgeInsets.all(2),
-              child: Text(
-                "${pokemon.stats.specialAttack}",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
               ),
@@ -184,11 +158,37 @@ class StatsRow extends StatelessWidget {
         ),
         Expanded(
           child: Container(
+            color: Color(0xffC338D3),
+            child: Padding(
+              padding: EdgeInsets.all(2),
+              child: Text(
+                "${pokemon.stats.specialAttack}",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
             color: Color(0xffD1A700),
             child: Padding(
               padding: EdgeInsets.all(2),
               child: Text(
                 "${pokemon.stats.specialDefence}",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: Color(0xff13CDEB),
+            child: Padding(
+              padding: EdgeInsets.all(2),
+              child: Text(
+                "${pokemon.stats.speed}",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, color: Color(0xffffffff)),
               ),
