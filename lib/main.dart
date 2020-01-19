@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/page_transitions.dart';
 import 'package:pixelmon_space/pages/crafting_page.dart';
 import 'package:pixelmon_space/pages/dex/dex_page.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
     "/spawning": (context, settings) => SpawningPage(),
     "/crafting": (context, settings) => CraftingPage(),
     "/dex_info": (context, settings) =>
-        PokemonInfoPage(settings.arguments as PokemonListEntry),
+        PokemonInfoPage(settings.arguments as int),
   };
 
   @override

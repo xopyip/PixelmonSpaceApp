@@ -6,24 +6,25 @@ import 'package:pixelmon_space/api/models/pokemon_models.dart';
 import 'package:pixelmon_space/api/pokemon_api.dart';
 import 'package:pixelmon_space/pages/dex/stats_graph.dart';
 import 'package:pixelmon_space/pages/dex/tabs/basic_pokemon_info_tab.dart';
+import 'package:pixelmon_space/pages/dex/tabs/evolutions_info_tab.dart';
 
 import '../../constants.dart';
 
 class PokemonInfoPage extends StatefulWidget {
-  final PokemonListEntry pokemon;
+  final int id;
 
-  PokemonInfoPage(this.pokemon);
+  PokemonInfoPage(this.id);
 
   @override
-  _PokemonInfoPageState createState() => _PokemonInfoPageState(this.pokemon);
+  _PokemonInfoPageState createState() => _PokemonInfoPageState(this.id);
 }
 
 class _PokemonInfoPageState extends State<PokemonInfoPage>
     with TickerProviderStateMixin {
-  PokemonListEntry pokemonListEntry;
+  int id;
   Pokemon pokemon;
 
-  _PokemonInfoPageState(this.pokemonListEntry);
+  _PokemonInfoPageState(this.id);
 
   @override
   void initState() {
@@ -75,8 +76,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
               right: 0,
               bottom: 0,
               child: pokemon == null
-                  ? CircularProgressIndicator()
-                  : Column(
+                  ? Container() : Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
@@ -119,9 +119,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                           body: TabBarView(
                             children: [
                               BasicPokemonInfoTab(this.pokemon),
-                              Container(
-                                child: Text("Ewolucje"),
-                              ),
+                              EvolutionsInfoTab(this.pokemon),
                               Container(
                                 child: Text("Ataki"),
                               ),
@@ -164,8 +162,11 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                           color: Color(0xffffffff),
                         ),
                       )),
-                  Text(
-                    this.pokemonListEntry.pixelmonName,
+                  pokemon == null
+                      ? SizedBox(
+                      width: 30, height: 30, child: CircularProgressIndicator())
+                      : Text(
+                    this.pokemon.pixelmonName,
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -184,14 +185,16 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                   height: 150,
                   fadeOutDuration: Duration(microseconds: 0),
                   imageUrl: API_URL +
-                      "pokemon/sprite/${this.pokemonListEntry.id.toString()
+                      "pokemon/sprite/${this.id.toString()
                           .padLeft(3, '0')}",
                   placeholder: (context, url) =>
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20),
-                          child: CircularProgressIndicator(),
+                          child: SizedBox(width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator()),
                         ),
                       ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
@@ -213,7 +216,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
   }
 
   void loadPokemon() async {
-    Pokemon pokemon = await fetchPokemon(this.pokemonListEntry.id);
+    Pokemon pokemon = await fetchPokemon(id);
     setState(() {
       this.pokemon = pokemon;
     });

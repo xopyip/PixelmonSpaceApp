@@ -43,7 +43,7 @@ class _DexPageState extends State<DexPage> {
           return GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(
-                  "/dex_info", arguments: pokemons[index]);
+                  "/dex_info", arguments: pokemons[index].id);
             },
             child: Stack(
               children: <Widget>[

@@ -18,9 +18,12 @@ class PokeEvolution {
   List<dynamic> conditions;
   List<String> moves;
   String evoType;
+  String from;
+  int toID;
+  int fromID;
 
   PokeEvolution(this.level, this.name, this.form, this.conditions, this.moves,
-      this.evoType);
+      this.evoType, this.from, this.toID, this.fromID);
 
   factory PokeEvolution.fromJson(json) {
     return PokeEvolution(
@@ -28,10 +31,13 @@ class PokeEvolution {
         json["name"] as String,
         json["form"] as int,
         json["conditions"] as List<dynamic>,
-        json["moves"] == null ? List() : (json["moves"] as List)
-            .cast<String>()
-            .toList(),
-        json["evoType"] as String);
+        json["moves"] == null
+            ? List()
+            : (json["moves"] as List).cast<String>().toList(),
+        json["evoType"] as String,
+        json["from"],
+        json["toID"],
+        json["fromID"]);
   }
 }
 
@@ -75,13 +81,14 @@ class Pokemon {
   bool isRideable;
   bool canFly;
   bool canSurf;
-  List<String> preEvolutions;
   String experienceGroup;
   PokeAggression aggression;
   List<String> spawnLocations;
   Map<String, int> evYields;
   double weight;
   List<PokeEvolution> evolutions;
+  List<PokeEvolution> prevEvolutions;
+  List<PokeEvolution> nextEvolutions;
   List<String> abilities;
   List<String> eggGroups;
   int eggCycles;
@@ -110,13 +117,14 @@ class Pokemon {
       this.isRideable,
       this.canFly,
       this.canSurf,
-      this.preEvolutions,
       this.experienceGroup,
       this.aggression,
       this.spawnLocations,
       this.evYields,
       this.weight,
       this.evolutions,
+      this.prevEvolutions,
+      this.nextEvolutions,
       this.abilities,
       this.eggGroups,
       this.eggCycles,
@@ -125,7 +133,12 @@ class Pokemon {
       this.tutorMoves,
       this.eggMoves,
       this.forms,
-      this.form);
+      this.form) {
+    this.prevEvolutions.sort((PokeEvolution a, PokeEvolution b) =>
+    a.toID - b.toID);
+    this.nextEvolutions.sort((PokeEvolution a, PokeEvolution b) =>
+    a.toID - b.toID);
+  }
 
   factory Pokemon.fromJson(json) {
     Map<String, Pokemon> forms = new Map();
@@ -159,9 +172,6 @@ class Pokemon {
       json["isRideable"],
       json["canFly"],
       json["canSurf"],
-      json["preEvolutions"] == null
-          ? List()
-          : (json["preEvolutions"] as List).cast<String>().toList(),
       json["experienceGroup"],
       json["aggression"] != null
           ? PokeAggression.fromJson(json["aggression"])
@@ -180,6 +190,16 @@ class Pokemon {
       json["evolutions"] == null
           ? List()
           : (json["evolutions"] as List<dynamic>)
+          .map((o) => PokeEvolution.fromJson(o))
+          .toList(),
+      json["prevEvolutions"] == null
+          ? List()
+          : (json["prevEvolutions"] as List<dynamic>)
+          .map((o) => PokeEvolution.fromJson(o))
+          .toList(),
+      json["nextEvolutions"] == null
+          ? List()
+          : (json["nextEvolutions"] as List<dynamic>)
           .map((o) => PokeEvolution.fromJson(o))
           .toList(),
       json["abilities"] == null
