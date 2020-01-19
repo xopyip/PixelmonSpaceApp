@@ -73,7 +73,6 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget createLink(BuildContext context, _NavigationItem item) {
-    print(this.page);
     return GestureDetector(
       child: Container(
         child: SizedBox(

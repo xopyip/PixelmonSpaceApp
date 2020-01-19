@@ -6,8 +6,7 @@ import 'package:pixelmon_space/pages/dex_page.dart';
 import 'package:pixelmon_space/pages/drop_page.dart';
 import 'package:pixelmon_space/pages/pokemon_info_page.dart';
 import 'package:pixelmon_space/pages/spawning_page.dart';
-
-import 'navigation.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +23,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Pixelmon Space',
       theme: ThemeData(
