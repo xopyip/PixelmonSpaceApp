@@ -28,7 +28,9 @@ class PokeEvolution {
         json["name"] as String,
         json["form"] as int,
         json["conditions"] as List<dynamic>,
-        (json["moves"] as List).cast<String>().toList(),
+        json["moves"] == null ? List() : (json["moves"] as List)
+            .cast<String>()
+            .toList(),
         json["evoType"] as String);
   }
 }
@@ -137,7 +139,9 @@ class Pokemon {
       json["id"],
       json["pixelmonName"],
       json["pokemon"],
-      PokeStats.fromJson(json["stats"]),
+      json["stats"] == null
+          ? PokeStats(0, 0, 0, 0, 0, 0)
+          : PokeStats.fromJson(json["stats"]),
       json["catchRate"],
       json["malePercent"],
       json["spawnLevel"],

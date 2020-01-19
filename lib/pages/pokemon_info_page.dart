@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pixelmon_space/api/models/pokemon_models.dart';
@@ -15,7 +17,8 @@ class PokemonInfoPage extends StatefulWidget {
   _PokemonInfoPageState createState() => _PokemonInfoPageState(this.pokemon);
 }
 
-class _PokemonInfoPageState extends State<PokemonInfoPage> {
+class _PokemonInfoPageState extends State<PokemonInfoPage>
+    with TickerProviderStateMixin {
   PokemonListEntry pokemonListEntry;
   Pokemon pokemon;
 
@@ -58,14 +61,57 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
             //Content
             Positioned(
               top: 160,
-              left: 20,
-              right: 20,
+              left: 0,
+              right: 0,
               bottom: 0,
               child: pokemon == null
                   ? CircularProgressIndicator()
                   : Column(
                 children: <Widget>[
-                  StatsGraph(pokemon.stats),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: StatsGraph(pokemon.stats),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: DefaultTabController(
+                        length: 3,
+                        child: Scaffold(
+                          backgroundColor: Colors.transparent,
+                          appBar: TabBar(
+
+                            unselectedLabelColor: Colors.black26,
+                            labelColor: Colors.redAccent,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorColor: Colors.redAccent,
+                            indicatorWeight: 6,
+                            tabs: [
+                              Tab(child: Text("Informacje podstawowe",
+                                textAlign: TextAlign.center,),),
+                              Tab(child: Text(
+                                "Ewolucje", textAlign: TextAlign.center,),),
+                              Tab(child: Text(
+                                "Ataki", textAlign: TextAlign.center,),),
+                            ],
+                          ),
+                          body: TabBarView(
+                            children: [
+                              Container(
+                                child: Text("informacje podstawowe"),
+                              ),
+                              Container(
+                                child: Text("Ewolucje"),
+                              ),
+                              Container(
+                                child: Text("Ataki"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -148,8 +194,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
   }
 
   void loadPokemon() async {
-    Pokemon pokemon =
-    await fetchPokemon(this.pokemonListEntry.id);
+    Pokemon pokemon = await fetchPokemon(this.pokemonListEntry.id);
     setState(() {
       this.pokemon = pokemon;
     });
