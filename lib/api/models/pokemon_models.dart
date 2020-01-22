@@ -212,7 +212,7 @@ class Pokemon {
       json["levelUpMoves"] == null
           ? Map()
           : (json["levelUpMoves"] as Map<String, dynamic>)
-          .cast<String, List<String>>(),
+          .map((a, b) => MapEntry(a, (b as List).cast<String>().toList())),
       json["tmMoves"] == null
           ? List()
           : (json["tmMoves"] as List).cast<String>().toList(),

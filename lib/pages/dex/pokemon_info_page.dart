@@ -7,6 +7,7 @@ import 'package:pixelmon_space/api/pokemon_api.dart';
 import 'package:pixelmon_space/pages/dex/stats_graph.dart';
 import 'package:pixelmon_space/pages/dex/tabs/basic_pokemon_info_tab.dart';
 import 'package:pixelmon_space/pages/dex/tabs/evolutions_info_tab.dart';
+import 'package:pixelmon_space/pages/dex/tabs/moves_info_tab.dart';
 
 import '../../constants.dart';
 
@@ -120,9 +121,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                             children: [
                               BasicPokemonInfoTab(this.pokemon),
                               EvolutionsInfoTab(this.pokemon),
-                              Container(
-                                child: Text("Ataki"),
-                              ),
+                              MovesInfoTab(this.pokemon),
                             ],
                           ),
                         ),
