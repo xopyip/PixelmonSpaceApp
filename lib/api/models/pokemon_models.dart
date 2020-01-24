@@ -63,6 +63,26 @@ class PokeStats {
   }
 }
 
+class PokeMove {
+  int attackIndex;
+  String attackName;
+  String attackType;
+  String attackCategory;
+
+
+  PokeMove(this.attackIndex, this.attackName, this.attackType,
+      this.attackCategory);
+
+  factory PokeMove.fromJson(json) {
+    return PokeMove(
+      json["attackIndex"] as int,
+      json["attackName"] as String,
+      json["attackType"] as String,
+      json["attackCategory"] as String,
+    );
+  }
+}
+
 class Pokemon {
   int id;
   String pixelmonName;
@@ -92,10 +112,10 @@ class Pokemon {
   List<String> abilities;
   List<String> eggGroups;
   int eggCycles;
-  Map<String, List<String>> levelUpMoves;
-  List<String> tmMoves;
-  List<String> tutorMoves;
-  List<String> eggMoves;
+  Map<String, List<PokeMove>> levelUpMoves;
+  List<PokeMove> tmMoves;
+  List<PokeMove> tutorMoves;
+  List<PokeMove> eggMoves;
   Map<String, Pokemon> forms;
   int form;
 
@@ -212,16 +232,21 @@ class Pokemon {
       json["levelUpMoves"] == null
           ? Map()
           : (json["levelUpMoves"] as Map<String, dynamic>)
-          .map((a, b) => MapEntry(a, (b as List).cast<String>().toList())),
+          .map((a, b) =>
+          MapEntry(a, (b as List).map((o) => PokeMove.fromJson(o)).toList())),
       json["tmMoves"] == null
           ? List()
-          : (json["tmMoves"] as List).cast<String>().toList(),
+          : (json["tmMoves"] as List).map((o) => PokeMove.fromJson(o)).toList(),
       json["tutorMoves"] == null
           ? List()
-          : (json["tutorMoves"] as List).cast<String>().toList(),
+          : (json["tutorMoves"] as List)
+          .map((o) => PokeMove.fromJson(o))
+          .toList(),
       json["eggMoves"] == null
           ? List()
-          : (json["eggMoves"] as List).cast<String>().toList(),
+          : (json["eggMoves"] as List)
+          .map((o) => PokeMove.fromJson(o))
+          .toList(),
       forms,
       json["form"],
     );

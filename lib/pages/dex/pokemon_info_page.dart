@@ -61,15 +61,6 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                 ],
               ),
             ),
-            //bottom background
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Image(
-                image: AssetImage("assets/bottom_bg.png"),
-              ),
-            ),
             //Content
             Positioned(
               top: 160,
@@ -129,6 +120,15 @@ class _PokemonInfoPageState extends State<PokemonInfoPage>
                     ),
                   ),
                 ],
+              ),
+            ),
+            //bottom background
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Image(
+                image: AssetImage("assets/bottom_bg.png"),
               ),
             ),
             //Top pokeball
