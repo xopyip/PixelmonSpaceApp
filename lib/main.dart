@@ -12,6 +12,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
 
   Map<String, Widget Function(BuildContext, RouteSettings)> routes = {
+    "/": (context, settings) => DexPage(),
     "/dex": (context, settings) => DexPage(),
     "/drop": (context, settings) => DropPage(),
     "/spawning": (context, settings) => SpawningPage(),
