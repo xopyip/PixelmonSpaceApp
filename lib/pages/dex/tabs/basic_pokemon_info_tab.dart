@@ -12,8 +12,7 @@ class BasicPokemonInfoTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return ListView(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
